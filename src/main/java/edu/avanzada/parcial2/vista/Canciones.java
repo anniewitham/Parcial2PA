@@ -53,7 +53,7 @@ public class Canciones extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         botonSalir.setBackground(new java.awt.Color(200, 200, 241));
-        botonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/salir.png"))); // NOI18N
+        botonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/imagenes/salir.png"))); // NOI18N
         botonSalir.setBorder(null);
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,7 +61,7 @@ public class Canciones extends javax.swing.JFrame {
             }
         });
         jPanel1.add(botonSalir);
-        botonSalir.setBounds(520, 10, 24, 24);
+        botonSalir.setBounds(520, 10, 40, 30);
 
         jLabel1.setFont(new java.awt.Font("Monospaced", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
@@ -124,7 +124,7 @@ public class Canciones extends javax.swing.JFrame {
         jPanel1.add(jLabel3);
         jLabel3.setBounds(340, 60, 51, 17);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/notas-musicales.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/imagenes/notas-musicales.png"))); // NOI18N
         jPanel1.add(jLabel4);
         jLabel4.setBounds(470, 270, 90, 80);
 
@@ -142,7 +142,7 @@ public class Canciones extends javax.swing.JFrame {
         botonDescargar.setBackground(new java.awt.Color(172, 165, 255));
         botonDescargar.setFont(new java.awt.Font("Lucida Sans", 0, 18)); // NOI18N
         botonDescargar.setForeground(new java.awt.Color(51, 51, 51));
-        botonDescargar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/32.png"))); // NOI18N
+        botonDescargar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/imagenes/32.png"))); // NOI18N
         botonDescargar.setText("Descargar Cancion");
         jPanel1.add(botonDescargar);
         botonDescargar.setBounds(160, 280, 240, 40);

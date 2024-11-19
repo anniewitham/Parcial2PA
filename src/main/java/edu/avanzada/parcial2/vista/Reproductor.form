@@ -139,7 +139,7 @@
               <Color blue="f1" green="c8" red="c8" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/edu/avanzada/parcial2/vista/salir.png"/>
+              <Image iconType="3" name="/edu/avanzada/parcial2/vista/imagenes/salir.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -196,7 +196,7 @@
         <Component class="javax.swing.JButton" name="botonPlay">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/edu/avanzada/parcial2/vista/tocar.png"/>
+              <Image iconType="3" name="/edu/avanzada/parcial2/vista/imagenes/tocar.png"/>
             </Property>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
@@ -207,7 +207,7 @@
         <Component class="javax.swing.JButton" name="botonPausa">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/edu/avanzada/parcial2/vista/pausa.png"/>
+              <Image iconType="3" name="/edu/avanzada/parcial2/vista/imagenes/pausa.png"/>
             </Property>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
@@ -218,7 +218,7 @@
         <Component class="javax.swing.JButton" name="botonAdelantar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/edu/avanzada/parcial2/vista/tiempo-pasado (1).png"/>
+              <Image iconType="3" name="/edu/avanzada/parcial2/vista/imagenes/tiempo-pasado (1).png"/>
             </Property>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
@@ -229,7 +229,7 @@
         <Component class="javax.swing.JButton" name="BotonDevolver">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/edu/avanzada/parcial2/vista/tiempo-pasado.png"/>
+              <Image iconType="3" name="/edu/avanzada/parcial2/vista/imagenes/tiempo-pasado.png"/>
             </Property>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>

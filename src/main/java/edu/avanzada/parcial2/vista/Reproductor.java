@@ -49,7 +49,7 @@ public class Reproductor extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(200, 200, 241));
 
         botonSalir.setBackground(new java.awt.Color(200, 200, 241));
-        botonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/salir.png"))); // NOI18N
+        botonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/imagenes/salir.png"))); // NOI18N
         botonSalir.setBorder(null);
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,16 +70,16 @@ public class Reproductor extends javax.swing.JFrame {
         TextNombreCancionRepro.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         TextNombreCancionRepro.setForeground(new java.awt.Color(51, 51, 51));
 
-        botonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/tocar.png"))); // NOI18N
+        botonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/imagenes/tocar.png"))); // NOI18N
         botonPlay.setContentAreaFilled(false);
 
-        botonPausa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/pausa.png"))); // NOI18N
+        botonPausa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/imagenes/pausa.png"))); // NOI18N
         botonPausa.setContentAreaFilled(false);
 
-        botonAdelantar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/tiempo-pasado (1).png"))); // NOI18N
+        botonAdelantar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/imagenes/tiempo-pasado (1).png"))); // NOI18N
         botonAdelantar.setContentAreaFilled(false);
 
-        BotonDevolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/tiempo-pasado.png"))); // NOI18N
+        BotonDevolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/avanzada/parcial2/vista/imagenes/tiempo-pasado.png"))); // NOI18N
         BotonDevolver.setContentAreaFilled(false);
 
         botonVolverTienda.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
