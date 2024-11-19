@@ -1,7 +1,7 @@
-
 package edu.avanzada.parcial2.control;
 
 import edu.avanzada.parcial2.vista.Canciones;
+import edu.avanzada.parcial2.vista.Reproductor;
 import edu.avanzada.parcial2.vista.ValidarUsuario;
 import edu.avanzada.parcial2.vista.VentanaEmergente;
 import java.awt.event.ActionEvent;
@@ -12,35 +12,40 @@ import java.io.IOException;
  *
  * @author Ana Quintero, Juan Avila, Samuel Barrera
  */
-public class Control implements ActionListener{
+public class Control implements ActionListener {
 
     protected Canciones canciones;
     protected ValidarUsuario validarUsuario;
-    protected VentanaEmergente ventanaEmergente; 
-    
-    
-    
+    protected Reproductor reproductor;
+    protected VentanaEmergente ventanaEmergente;
+
     public Control() throws IOException {
         ventanaEmergente = new VentanaEmergente();
-        
+
         canciones = new Canciones(this);
         canciones.botonSalir.addActionListener(this);
         canciones.botonDescargar.addActionListener(this);
         canciones.botonSalir.setActionCommand("Salir");
-        
+
         validarUsuario = new ValidarUsuario(this);
         validarUsuario.botonIngresar.addActionListener(this);
         validarUsuario.botonSalir.addActionListener(this);
         validarUsuario.botonSalir.setActionCommand("Salir");
-        
+
+        reproductor = new Reproductor(this);
+        reproductor.BotonDevolver.addActionListener(this);
+        reproductor.botonAdelantar.addActionListener(this);
+        reproductor.botonPausa.addActionListener(this);
+        reproductor.botonPlay.addActionListener(this);
+         reproductor.botonVolverTienda.addActionListener(this);
+        reproductor.botonSalir.addActionListener(this);
+        reproductor.botonSalir.setActionCommand("Salir");
+
     }
 
-    
-    
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }
