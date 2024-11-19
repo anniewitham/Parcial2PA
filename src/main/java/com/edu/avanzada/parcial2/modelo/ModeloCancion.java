@@ -19,15 +19,18 @@ import java.sql.Statement;
  * @author Personal
  */
 public class ModeloCancion {
-    Properties propiedades = new Properties();
+    public Properties propiedades = new Properties();
+    public String URL = "jdbc:mysql://localhost:3306/mysound";
+    public int puerto = 8080;
+    public String usuario = "root";
+    public String contraseña = "";
     
-    public ArrayList<String> ListaCanciones() throws SQLException{
+    public  ArrayList<String> ListaCanciones() throws SQLException{
         ArrayList<String> canciones = new ArrayList<>();
-        String consulta = "SELECT nombre FROM canciones1";
         
-        String URL = propiedades.getProperty("URLBD");
-        String usuario = propiedades.getProperty("usuario");
-        String contraseña = propiedades.getProperty("constraseña");
+        String consulta = "SELECT nombre FROM canciones";
+        
+        
         
         try(Connection conn = DriverManager.getConnection(URL, usuario, contraseña); 
             Statement stmt = conn.createStatement(); 
