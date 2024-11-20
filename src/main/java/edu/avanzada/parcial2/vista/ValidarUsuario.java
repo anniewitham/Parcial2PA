@@ -8,15 +8,22 @@ import edu.avanzada.parcial2.control.ControlPrincipal;
 import static java.awt.SystemColor.control;
 
 /**
+ * Clase que representa la interfaz gráfica para la validación de usuario.
+ * Permite que los usuarios ingresen sus credenciales (nombre de usuario y
+ * contraseña) para acceder a la aplicación.
  *
- * @author Personal
+ * @author Ana Quintero, Juan Avila, Samuel Barrera
  */
 public class ValidarUsuario extends javax.swing.JFrame {
 
     private ControlPrincipal control;
 
     /**
-     * Creates new form ValidarUsuario
+     * Constructor de la clase ValidarUsuario. Inicializa los componentes
+     * gráficos y configura la posición de la ventana.
+     *
+     * @param aThis Referencia al objeto ControlPrincipal que gestiona la lógica
+     * de validación de usuario.
      */
     public ValidarUsuario(ControlPrincipal aThis) {
         initComponents();

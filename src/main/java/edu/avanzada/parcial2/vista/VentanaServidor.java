@@ -7,15 +7,21 @@ package edu.avanzada.parcial2.vista;
 import edu.avanzada.parcial2.control.ControlPrincipal;
 
 /**
+ * Clase que representa la interfaz gráfica del servidor. 
+ * Donde muestra las acciones realizadas en el servidor
  *
- * @author Personal
+ * @author Ana Quintero, Juan Avila, Samuel Barrera
  */
 public class VentanaServidor extends javax.swing.JFrame {
 
     private ControlPrincipal control;
 
     /**
-     * Creates new form VentanaServidor
+     * Constructor de la clase VentanaServidor. Inicializa los componentes
+     * gráficos y configura la posición de la ventana.
+     *
+     * @param aThis Referencia al objeto ControlPrincipal que gestiona la lógica
+     * del servidor.
      */
     public VentanaServidor(ControlPrincipal aThis) {
         initComponents();

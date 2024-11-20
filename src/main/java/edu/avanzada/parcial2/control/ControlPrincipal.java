@@ -10,6 +10,9 @@ import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Clase que actúa como el controlador principal del sistema, manejando las
+ * interacciones entre la lógica de negocio y la interfaz gráfica. Implementa
+ * ActionListener para gestionar eventos de los componentes de la interfaz.
  *
  * @author Ana Quintero, Juan Avila, Samuel Barrera
  */
@@ -26,6 +29,14 @@ public class ControlPrincipal implements ActionListener {
     protected ControlUsuario controlUsuario;
     private String ventana;
 
+    /**
+     * Constructor de ControlPrincipal. Inicializa las ventanas y establece los
+     * listeners para los botones.
+     *
+     * @param tipo Tipo de ventana a inicializar (1 para cliente, 2 para
+     * servidor).
+     * @throws IOException Si ocurre un error al manejar archivos.
+     */
     public ControlPrincipal(int tipo) throws IOException {
         switch (tipo) {
             case 1:
@@ -62,10 +73,9 @@ public class ControlPrincipal implements ActionListener {
     }
 
     /**
-     * Carga las propiedades de la base de datos desde un archivo seleccionado por
-     * el usuario.
-     * Establece la conexión a la base de datos y crea instancias de los objetos
-     * necesarios.
+     * Carga las propiedades de la base de datos desde un archivo seleccionado
+     * por el usuario. Establece la conexión a la base de datos y crea
+     * instancias de los objetos necesarios.
      */
     private void generarConexion() {
         boolean archivoSeleccionado = false;
@@ -121,6 +131,12 @@ public class ControlPrincipal implements ActionListener {
         }
     }
 
+    /**
+     * Agrega las canciones obtenidas de la base de datos a la tabla de la
+     * interfaz.
+     *
+     * @param lista Lista de objetos CancionVO que representan las canciones.
+     */
     private void agregarCanciones(List<CancionVO> lista) {
         DefaultTableModel model = (DefaultTableModel) canciones.jTable1.getModel();
         model.setRowCount(0);
@@ -134,6 +150,11 @@ public class ControlPrincipal implements ActionListener {
         }
     }
 
+    /**
+     * Maneja los eventos de los botones en la interfaz.
+     *
+     * @param e Evento generado por los componentes.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -143,7 +164,7 @@ public class ControlPrincipal implements ActionListener {
                 break;
             case "Ingresar":
                 try {
-                    if((clienteDAO.confirmarClienteVO(validarUsuario.TextUsuario.getText(), validarUsuario.TextContraseña.getPassword()))) {
+                    if ((clienteDAO.confirmarClienteVO(validarUsuario.TextUsuario.getText(), validarUsuario.TextContraseña.getPassword()))) {
                         validarUsuario.dispose();
                         canciones.setVisible(true);
                     } else {

@@ -8,14 +8,22 @@ import edu.avanzada.parcial2.control.ControlPrincipal;
 import static java.awt.SystemColor.control;
 
 /**
+ * Clase que representa la interfaz gráfica de la tienda de canciones. Permite a
+ * los usuarios visualizar las canciones disponibles, su saldo actual y
+ * descargar canciones desde la tienda.
  *
- * @author Personal
+ * @author Juan, Ana, Samuel
  */
 public class Canciones extends javax.swing.JFrame {
 
     private ControlPrincipal control;
+
     /**
-     * Creates new form Canciones
+     * Constructor de la clase Canciones. Inicializa los componentes gráficos y
+     * configura la posición de la ventana.
+     *
+     * @param control Referencia al objeto ControlPrincipal que gestiona la
+     * lógica de la aplicación.
      */
     public Canciones(ControlPrincipal aThis) {
         initComponents();
@@ -165,7 +173,6 @@ public class Canciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonSalirActionPerformed
 
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane TablaCanciones;

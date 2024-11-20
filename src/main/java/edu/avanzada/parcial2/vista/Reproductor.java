@@ -7,14 +7,21 @@ package edu.avanzada.parcial2.vista;
 import edu.avanzada.parcial2.control.ControlPrincipal;
 
 /**
+ * Clase que representa la interfaz gráfica del reproductor de canciones.
+ * Permite a los usuarios interactuar con las funcionalidades de reproducción.
  *
- * @author Personal
+ * @author Juan, Ana, Samuel
  */
 public class Reproductor extends javax.swing.JFrame {
 
     private ControlPrincipal control;
+
     /**
-     * Creates new form Reproductor
+     * Constructor de la clase Reproductor. Inicializa los componentes gráficos
+     * y configura la posición de la ventana.
+     *
+     * @param control Referencia al objeto ControlPrincipal que gestiona la
+     * lógica de la aplicación.
      */
     public Reproductor(ControlPrincipal aThis) {
         initComponents();
