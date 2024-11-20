@@ -17,10 +17,17 @@ public class VentanaEmergente {
      *
      * @param mensaje El mensaje que se mostrará en la ventana de diálogo.
      */
-    public void ventanaAtención(String mensaje) {
+    public void ventanaAtencion(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje, "Atención", JOptionPane.WARNING_MESSAGE);
     }
 
-    
+    /**
+     * Ventana error. Muestra errores
+     *
+     * @param mensaje
+     */
+    public void ventanaError(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
 }

@@ -4,7 +4,7 @@
  */
 package edu.avanzada.parcial2.vista;
 
-import edu.avanzada.parcial2.control.Control;
+import edu.avanzada.parcial2.control.ControlPrincipal;
 import static java.awt.SystemColor.control;
 
 /**
@@ -13,12 +13,12 @@ import static java.awt.SystemColor.control;
  */
 public class ValidarUsuario extends javax.swing.JFrame {
 
-    private Control control;
+    private ControlPrincipal control;
 
     /**
      * Creates new form ValidarUsuario
      */
-    public ValidarUsuario(Control aThis) {
+    public ValidarUsuario(ControlPrincipal aThis) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.control = control;

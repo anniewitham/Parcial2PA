@@ -4,7 +4,7 @@
  */
 package edu.avanzada.parcial2.vista;
 
-import edu.avanzada.parcial2.control.Control;
+import edu.avanzada.parcial2.control.ControlPrincipal;
 
 /**
  *
@@ -12,11 +12,11 @@ import edu.avanzada.parcial2.control.Control;
  */
 public class Reproductor extends javax.swing.JFrame {
 
-    private Control control;
+    private ControlPrincipal control;
     /**
      * Creates new form Reproductor
      */
-    public Reproductor(Control aThis) {
+    public Reproductor(ControlPrincipal aThis) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.control = control;
