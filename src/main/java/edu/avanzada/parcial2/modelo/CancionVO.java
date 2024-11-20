@@ -1,37 +1,43 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package edu.avanzada.parcial2.modelo;
+
+import java.io.File;
 
 /**
  *
  * @author Personal
  */
 public class CancionVO {
-    private String Nombre;
-    private String Artista;
+    private String nombre;
+    private String artista;
+    private File cancion;
 
-    public CancionVO(String Nombre, String Artista) {
-        this.Nombre = Nombre;
-        this.Artista = Artista;
+    public CancionVO(String Nombre, String Artista, File cancion) {
+        this.nombre = Nombre;
+        this.artista = Artista;
+        this.cancion = cancion;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getArtista() {
-        return Artista;
+        return artista;
     }
 
-    public void setArtista(String Artista) {
-        this.Artista = Artista;
+    public void setArtista(String artista) {
+        this.artista = artista;
     }
     
-    
+    public File getCancion(){
+        return cancion;
+    }
+
+    public void setCancion(File cancion) {
+        this.cancion = cancion;
+    }
 }

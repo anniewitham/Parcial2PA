@@ -19,7 +19,7 @@ public class ClienteDAO {
     private Connection connection;
 
     /**
-     * Constructor de la clase RazaDAO.
+     * Constructor de la clase ClienteDAO.
      *
      * @param connection La conexión a la base de datos que se utilizará para
      *                   realizar las operaciones de acceso a datos.
@@ -27,33 +27,28 @@ public class ClienteDAO {
     public ClienteDAO(Connection connection) {
         this.connection = connection;
     }
-
-    /**
-     * Busca una raza en la base de datos según su nombre.
-     *
-     * @param nombre El nombre de la raza a buscar.
-     * @return Un objeto RazaVO que representa la raza encontrada, o null si no se
-     *         encuentra.
-     * @throws SQLException Si ocurre un error al realizar la operación en la base
-     *                      de datos.
-     */
-    public ClienteVO confirmarClienteVO(String nombre, String contrasena) throws SQLException {
-        String sql = "SELECT * FROM clientes WHERE nombre = ?";
+    
+    public boolean confirmarClienteVO(String nombre, char[] contrasena) throws SQLException {
+        String sql = "SELECT * FROM usuarios WHERE nombre = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, nombre);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    if (rs.getString("contrasena").equals(contrasena)) {
-                        return new ClienteVO(
+                    String contrasenaIngresada = new String(contrasena);
+                    String contrasenaHashAlmacenada = rs.getString("contrasena");
+                    if (contrasenaHashAlmacenada.equals(contrasenaIngresada)) {
+                        ClienteVO cliente = new ClienteVO(
                                 rs.getString("nombre"),
-                                rs.getString("contrasena"),
-                                rs.getString("saldo"));
+                                contrasenaHashAlmacenada,
+                                rs.getInt("saldo"));
+                        return true;
                     } else {
-                        return null;
+                        return false;
                     }
                 }
             }
         }
-        return null;
+        return false;
     }
+    
 }

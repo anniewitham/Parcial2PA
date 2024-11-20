@@ -7,9 +7,9 @@ package edu.avanzada.parcial2.modelo;
 public class ClienteVO {
     private String usuario;
     private String contraseña;
-    private String saldo;
+    private int saldo;
 
-    public ClienteVO(String usuario, String contraseña, String saldo) {
+    public ClienteVO(String usuario, String contraseña, int saldo) {
         this.usuario = usuario;
         this.contraseña = contraseña;
         this.saldo = saldo;
@@ -31,11 +31,11 @@ public class ClienteVO {
         this.contraseña = contraseña;
     }
 
-    public String getSaldo() {
+    public int getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(String saldo) {
+    public void setSaldo(int saldo) {
         this.saldo = saldo;
     }
 }

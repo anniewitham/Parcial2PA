@@ -7,6 +7,8 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Ana Quintero, Juan Avila, Samuel Barrera
@@ -48,7 +50,6 @@ public class ControlPrincipal implements ActionListener {
 
                 ventana = "cliente";
                 break;
-
             case 2:
                 ventana = "servidor";
                 break;
@@ -90,8 +91,14 @@ public class ControlPrincipal implements ActionListener {
                     switch (ventana) {
                         case "cliente":
                             clienteDAO = new ClienteDAO(conexion.getConexion());
-                            controlUsuario = new ControlUsuario();
+                            cancionDAO = new CancionDAO(conexion.getConexion());
                             validarUsuario.setVisible(true);
+
+                            DefaultTableModel model = (DefaultTableModel) canciones.jTable1.getModel();
+                            model.setRowCount(0);
+
+                            List<CancionVO> lista = cancionDAO.consultarCanciones();
+                            agregarCanciones(lista);
                             break;
                         case "servidor":
                             break;
@@ -114,6 +121,19 @@ public class ControlPrincipal implements ActionListener {
         }
     }
 
+    private void agregarCanciones(List<CancionVO> lista) {
+        DefaultTableModel model = (DefaultTableModel) canciones.jTable1.getModel();
+        model.setRowCount(0);
+
+        for (CancionVO cancion : lista) {
+            Object[] rowData = {
+                cancion.getNombre(),
+                cancion.getArtista()
+            };
+            model.addRow(rowData);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -122,12 +142,19 @@ public class ControlPrincipal implements ActionListener {
                 System.exit(0);
                 break;
             case "Ingresar":
-                /**if((clienteDAO.confirmarClienteVO(validarUsuario.(), validarUsuario.get))) {
-
+                try {
+                    if((clienteDAO.confirmarClienteVO(validarUsuario.TextUsuario.getText(), validarUsuario.TextContraseña.getPassword()))) {
+                        validarUsuario.dispose();
+                        canciones.setVisible(true);
+                    } else {
+                        ventanaEmergente.ventanaAtencion("Usuario o contraseña invalida!");
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
                 }
-                break;*/
+                break;
+            case "Descargar Cancion":
         }
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
