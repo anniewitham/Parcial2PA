@@ -4,6 +4,7 @@ import edu.avanzada.parcial2.modelo.*;
 import edu.avanzada.parcial2.vista.*;
 import java.awt.event.*;
 import java.io.*;
+
 import java.sql.SQLException;
 import java.util.*;
 
@@ -52,6 +53,7 @@ public class ControlPrincipal implements ActionListener {
                 break;
             case 2:
                 ventana = "servidor";
+               
                 break;
         }
 
@@ -68,58 +70,72 @@ public class ControlPrincipal implements ActionListener {
      * necesarios.
      */
     private void generarConexion() {
-        boolean archivoSeleccionado = false;
+    boolean archivoSeleccionado = false;
 
-        while (!archivoSeleccionado) {
-            try {
-                String rutaArchivo = buscarArchivo.buscarArchivo();
+    while (!archivoSeleccionado) {
+        try {
+            // Buscar archivo de propiedades
+            String rutaArchivo = buscarArchivo.buscarArchivo();
 
-                if (buscarArchivo.isArchivoSeleccionado()) {
-                    Properties propiedades = new Properties();
-                    propiedades.load(new FileInputStream(rutaArchivo));
+            if (buscarArchivo.isArchivoSeleccionado()) {
+                // Cargar propiedades desde el archivo
+                Properties propiedades = new Properties();
+                propiedades.load(new FileInputStream(rutaArchivo));
 
-                    String urlBD = propiedades.getProperty("URLBD");
-                    String usuario = propiedades.getProperty("usuario");
-                    String contrasena = propiedades.getProperty("contrasena");
+                // Obtener las propiedades de la base de datos
+                String urlBD = propiedades.getProperty("URLBD");
+                String usuario = propiedades.getProperty("usuario");
+                String contrasena = propiedades.getProperty("contrasena");
 
-                    if (urlBD == null || usuario == null || contrasena == null) {
-                        ventanaEmergente.ventanaError("Faltan propiedades en el archivo.");
-                        continue;
-                    }
-
-                    conexion = new Conexion(urlBD, usuario, contrasena);
-                    switch (ventana) {
-                        case "cliente":
-                            clienteDAO = new ClienteDAO(conexion.getConexion());
-                            cancionDAO = new CancionDAO(conexion.getConexion());
-                            validarUsuario.setVisible(true);
-
-                            DefaultTableModel model = (DefaultTableModel) canciones.jTable1.getModel();
-                            model.setRowCount(0);
-
-                            List<CancionVO> lista = cancionDAO.consultarCanciones();
-                            agregarCanciones(lista);
-                            break;
-                        case "servidor":
-                            break;
-                        default:
-                            break;
-                    }
-                    archivoSeleccionado = true;
-                } else {
-                    ventanaEmergente.ventanaAtencion("Debes seleccionar un archivo de propiedades.");
+                if (urlBD == null || usuario == null || contrasena == null) {
+                    ventanaEmergente.ventanaError("Faltan propiedades en el archivo.");
+                    continue;
                 }
-            } catch (IOException e) {
-                ventanaEmergente.ventanaError("Error al cargar propiedades: " + e.getMessage());
+
+                // Crear conexión a la base de datos
+                conexion = new Conexion(urlBD, usuario, contrasena);
+
+                // Obtener el puerto desde el archivo de propiedades
+                String puertoStr = propiedades.getProperty("puerto", "50"); // Si no hay puerto, usa 50 por defecto
+                int puerto = Integer.parseInt(puertoStr);
+
+                switch (ventana) {
+                    case "cliente":
+                        // Configuración para el cliente
+                        clienteDAO = new ClienteDAO(conexion.getConexion());
+                        cancionDAO = new CancionDAO(conexion.getConexion());
+                        validarUsuario.setVisible(true);
+
+                        // Mostrar canciones en la vista
+                        DefaultTableModel model = (DefaultTableModel) canciones.jTable1.getModel();
+                        model.setRowCount(0);
+
+                        List<CancionVO> lista = cancionDAO.consultarCanciones();
+                        agregarCanciones(lista);
+                        break;
+                    case "servidor":
+                        // Crear el ControlServidor con el puerto
+                        ControlServidor controlServidor = new ControlServidor(puerto); // Pasamos el puerto
+                        controlServidor.iniciar(); // Llamamos al método iniciar() para iniciar el servidor
+                        break;
+                    default:
+                        break;
+                }
                 archivoSeleccionado = true;
-            } catch (SQLException e) {
-                ventanaEmergente.ventanaError("Error al acceder a la base de datos: " + e.getMessage());
-                archivoSeleccionado = true;
-            } catch (Exception e) {
-                ventanaEmergente.ventanaError("Error inesperado: " + e.getMessage());
+            } else {
+                ventanaEmergente.ventanaAtencion("Debes seleccionar un archivo de propiedades.");
             }
+        } catch (IOException e) {
+            ventanaEmergente.ventanaError("Error al cargar propiedades: " + e.getMessage());
+            archivoSeleccionado = true;
+        } catch (SQLException e) {
+            ventanaEmergente.ventanaError("Error al acceder a la base de datos: " + e.getMessage());
+            archivoSeleccionado = true;
+        } catch (Exception e) {
+            ventanaEmergente.ventanaError("Error inesperado: " + e.getMessage());
         }
     }
+}
 
     private void agregarCanciones(List<CancionVO> lista) {
         DefaultTableModel model = (DefaultTableModel) canciones.jTable1.getModel();
