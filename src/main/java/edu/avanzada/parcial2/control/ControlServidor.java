@@ -28,7 +28,10 @@ public class ControlServidor {
                 notificarEstado("Esperando conexiones...");
                 Socket socketCliente = servidorSocket.accept();
                 notificarEstado("Cliente conectado desde: " + socketCliente.getInetAddress());
-                // Aquí se manejarán los clientes en el futuro
+
+                // Crear un nuevo hilo para manejar este cliente
+                Thread clienteThread = new Thread(new ControlUsuario(socketCliente)); 
+                clienteThread.start(); // Iniciar el hilo
             }
         } catch (IOException e) {
             notificarError("Error al iniciar el servidor: " + e.getMessage());
@@ -44,6 +47,7 @@ public class ControlServidor {
         // Aquí podrías conectar a una vista o logger en el futuro
     }
 }
+
 
 
 
