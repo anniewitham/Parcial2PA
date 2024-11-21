@@ -2,9 +2,12 @@ package edu.avanzada.parcial2.control;
 
 import edu.avanzada.parcial2.modelo.*;
 import edu.avanzada.parcial2.vista.*;
+
+import java.awt.HeadlessException;
 import java.awt.event.*;
 import java.io.*;
-
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -27,6 +30,9 @@ public class ControlPrincipal implements ActionListener {
     protected ControlUsuario controlUsuario;
     private String ventana;
     private ControlServidor controlServidor;
+    private ControlUsuario cliente;
+    private int puerto;
+    private ClienteVO clienteVO;
 
     public ControlPrincipal(int tipo) throws IOException {
         switch (tipo) {
@@ -96,7 +102,7 @@ public class ControlPrincipal implements ActionListener {
                     conexion = new Conexion(urlBD, usuario, contrasena);
 
                     // Obtener el puerto desde el archivo de propiedades
-                    int puerto = Integer.parseInt(propiedades.getProperty("puerto"));
+                    puerto = Integer.parseInt(propiedades.getProperty("puerto"));
 
                     switch (ventana) {
                         case "cliente":
@@ -153,20 +159,28 @@ public class ControlPrincipal implements ActionListener {
                 System.exit(0);
                 break;
             case "Ingresar":
+
                 try {
                     if ((clienteDAO.confirmarClienteVO(validarUsuario.TextUsuario.getText(),
                             validarUsuario.TextContraseña.getPassword()))) {
+                        clienteVO = clienteDAO.buscarCliente(validarUsuario.TextUsuario.getText());
                         validarUsuario.dispose();
+                        Inet4Address ip = null;
+                        while (ip == null){
+                            ip = ventanaEmergente.ventanaIP();
+                        }
+                        cliente = new ControlUsuario(puerto, ip, clienteVO);
                         canciones.setVisible(true);
                     } else {
                         ventanaEmergente.ventanaAtencion("Usuario o contraseña invalida!");
                     }
                 } catch (SQLException e1) {
-                    e1.printStackTrace();
+                } catch (HeadlessException e1) {
+                } catch (UnknownHostException e1) {
                 }
                 break;
             case "Descargar Cancion":
+
         }
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

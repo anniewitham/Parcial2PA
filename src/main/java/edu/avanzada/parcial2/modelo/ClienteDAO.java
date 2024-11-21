@@ -39,7 +39,6 @@ public class ClienteDAO {
                     if (contrasenaHashAlmacenada.equals(contrasenaIngresada)) {
                         ClienteVO cliente = new ClienteVO(
                                 rs.getString("nombre"),
-                                contrasenaHashAlmacenada,
                                 rs.getInt("saldo"));
                         return true;
                     } else {
@@ -51,4 +50,19 @@ public class ClienteDAO {
         return false;
     }
     
+    public ClienteVO buscarCliente(String nombre) throws SQLException {
+        String sql = "SELECT * FROM usuarios WHERE nombre = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nombre);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new ClienteVO(
+                        rs.getString("nombre"),
+                        rs.getInt("saldo")
+                    );
+                }
+            }
+        }
+        return null;
+    }
 }

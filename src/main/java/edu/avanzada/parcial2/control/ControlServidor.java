@@ -6,30 +6,32 @@ import java.net.*;
 public class ControlServidor {
 
     private ServerSocket servidor;
-    private Socket usuario;
-    private int puerto; // Usamos la clase Servidor como modelo
+    private int puerto;
+    private int idSesion;
 
-    // Constructor de ControlServidor que recibe el puerto
     public ControlServidor(int puerto) {
-        this.puerto = puerto; // Crear una instancia de Servidor con el puerto
+        this.puerto = puerto;
+        this.idSesion = 0;
     }
 
     /**
      * Inicia el servidor en el puerto especificado.
-     * 
-     * @throws IOException si ocurre un error al iniciar el servidor o aceptar
-     *                     conexiones.
+     * Escucha conexiones entrantes y lanza un hilo para cada cliente.
      */
     public void iniciar() {
         try {
             servidor = new ServerSocket(puerto);
-            while (true) {
-                usuario = servidor.accept();
+            InetAddress ip = InetAddress.getLocalHost();
+            System.out.println("Servidor iniciado en IP: " + ip.getHostAddress() + ", Puerto: " + puerto);
 
-                // Crear un nuevo hilo para manejar este cliente
-                //Thread usuarioThread = new Thread(new ControlUsuario();
-                //usuarioThread.start();
+            while (true) {
+                Socket usuario = servidor.accept();
+                System.out.println("Nueva conexión entrante desde: " + usuario.getInetAddress().getHostAddress());
+
+                new ServidorThread(usuario, idSesion).start();
+                idSesion++;
             }
+        } catch (IOException e) {
         } catch (Exception e) {
         }
     }

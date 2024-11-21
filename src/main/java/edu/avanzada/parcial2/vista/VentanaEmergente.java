@@ -1,7 +1,7 @@
 package edu.avanzada.parcial2.vista;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import java.awt.HeadlessException;
+import java.net.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,6 +28,10 @@ public class VentanaEmergente {
      */
     public void ventanaError(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public Inet4Address ventanaIP() throws HeadlessException, UnknownHostException{
+        return (Inet4Address) InetAddress.getByName(JOptionPane.showInputDialog("Introducir IP :"));
     }
 
 }

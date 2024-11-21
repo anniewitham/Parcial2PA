@@ -6,12 +6,10 @@ package edu.avanzada.parcial2.modelo;
  */
 public class ClienteVO {
     private String usuario;
-    private String contraseña;
     private int saldo;
 
-    public ClienteVO(String usuario, String contraseña, int saldo) {
+    public ClienteVO(String usuario, int saldo) {
         this.usuario = usuario;
-        this.contraseña = contraseña;
         this.saldo = saldo;
     }
 
@@ -21,14 +19,6 @@ public class ClienteVO {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
     }
 
     public int getSaldo() {
