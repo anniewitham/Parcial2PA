@@ -6,8 +6,7 @@ import edu.avanzada.parcial2.vista.*;
 import java.awt.HeadlessException;
 import java.awt.event.*;
 import java.io.*;
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -33,21 +32,22 @@ public class ControlPrincipal implements ActionListener {
     private ControlUsuario cliente;
     private int puerto;
     private ClienteVO clienteVO;
+    protected VentanaServidor ventanaServidor;
 
     public ControlPrincipal(int tipo) throws IOException {
         switch (tipo) {
             case 1:
-                validarUsuario = new ValidarUsuario(this);
+                validarUsuario = new ValidarUsuario();
                 validarUsuario.botonIngresar.addActionListener(this);
                 validarUsuario.botonSalir.addActionListener(this);
                 validarUsuario.botonSalir.setActionCommand("Salir");
 
-                canciones = new Canciones(this);
+                canciones = new Canciones();
                 canciones.botonSalir.addActionListener(this);
                 canciones.botonDescargar.addActionListener(this);
                 canciones.botonSalir.setActionCommand("Salir");
 
-                reproductor = new Reproductor(this);
+                reproductor = new Reproductor();
                 reproductor.BotonDevolver.addActionListener(this);
                 reproductor.botonAdelantar.addActionListener(this);
                 reproductor.botonPausa.addActionListener(this);
@@ -59,6 +59,10 @@ public class ControlPrincipal implements ActionListener {
                 ventana = "cliente";
                 break;
             case 2:
+                ventanaServidor = new VentanaServidor();
+                ventanaServidor.botonSalir.addActionListener(this);
+                ventanaServidor.botonSalir.setActionCommand("Salir");
+
                 ventana = "servidor";
                 break;
         }
@@ -116,7 +120,8 @@ public class ControlPrincipal implements ActionListener {
                             break;
                         case "servidor":
                             // Crear el ControlServidor con el puerto
-                            controlServidor = new ControlServidor(puerto); // Pasamos el puerto
+                            ventanaServidor.setVisible(true);
+                            controlServidor = new ControlServidor(puerto, this); // Pasamos el puerto
                             controlServidor.iniciar(); // Llamamos al método iniciar() para iniciar el servidor
                             break;
                         default:
@@ -170,6 +175,8 @@ public class ControlPrincipal implements ActionListener {
                             ip = ventanaEmergente.ventanaIP();
                         }
                         cliente = new ControlUsuario(puerto, ip, clienteVO);
+                        canciones.TextNombreCliente1.setText(clienteVO.getUsuario());
+                        canciones.TextCuenta.setText(Integer.toString(clienteVO.getSaldo()));
                         canciones.setVisible(true);
                     } else {
                         ventanaEmergente.ventanaAtencion("Usuario o contraseña invalida!");
@@ -180,7 +187,10 @@ public class ControlPrincipal implements ActionListener {
                 }
                 break;
             case "Descargar Cancion":
-
+                int seleccion = canciones.jTable1.getSelectedRow();
+                String nombre = (String) canciones.jTable1.getValueAt(seleccion, 0);
+                // Aqui se agregara la logica para descargar la cancion con el nombre que se recoge de la tabla
+                break;
         }
     }
 }

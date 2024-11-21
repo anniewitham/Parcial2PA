@@ -26,14 +26,6 @@ public class ControlUsuario{
     public void Conectar(){
         try {
             socket = new Socket(ip, puerto);
-            System.out.println("Se establecio la conexion con el servidor");
-            /**JFileChooser file = new JFileChooser("user.dir");
-            file.showOpenDialog(file);
-            fileDestino = file.getSelectedFile();
-            FileOutputStream fos = new FileOutputStream(fileDestino);
-            // se crean los flujose de entrada (desde el servidor) y salida (al archivo)
-            outCliente = new DataOutputStream(fos);
-            inCliente = new DataInputStream(usuario.getInputStream());*/
         } catch (IOException e) {
             e.printStackTrace();
         }

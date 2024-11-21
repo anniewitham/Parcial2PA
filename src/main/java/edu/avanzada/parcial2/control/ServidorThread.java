@@ -15,6 +15,6 @@ public class ServidorThread extends Thread{
 
     @Override
     public void run() {
-        System.out.println("Se creo un hilo para el cliente: "+cliente);
+        //Aqui se debe agregar la logica de manejo del servidor
     }
 }
