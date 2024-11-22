@@ -34,6 +34,8 @@ public class ControlPrincipal implements ActionListener {
     private ClienteVO clienteVO;
     protected VentanaServidor ventanaServidor;
 
+    private ControlMusica controlMusica;
+
     public ControlPrincipal(int tipo) throws IOException {
         switch (tipo) {
             case 1:
@@ -56,6 +58,12 @@ public class ControlPrincipal implements ActionListener {
                 reproductor.botonSalir.addActionListener(this);
                 reproductor.botonSalir.setActionCommand("Salir");
 
+                //--------------
+                reproductor.BotonDevolver.setActionCommand("Devolver");
+                reproductor.botonAdelantar.setActionCommand("Adelantar");
+                reproductor.botonPausa.setActionCommand("Pausa");
+                reproductor.botonPlay.setActionCommand("Play");
+
                 ventana = "cliente";
                 break;
             case 2:
@@ -74,10 +82,9 @@ public class ControlPrincipal implements ActionListener {
     }
 
     /**
-     * Carga las propiedades de la base de datos desde un archivo seleccionado por
-     * el usuario.
-     * Establece la conexión a la base de datos y crea instancias de los objetos
-     * necesarios.
+     * Carga las propiedades de la base de datos desde un archivo seleccionado
+     * por el usuario. Establece la conexión a la base de datos y crea
+     * instancias de los objetos necesarios.
      */
     private void generarConexion() {
         boolean archivoSeleccionado = false;
@@ -149,8 +156,8 @@ public class ControlPrincipal implements ActionListener {
 
         for (CancionVO cancion : lista) {
             Object[] rowData = {
-                    cancion.getNombre(),
-                    cancion.getArtista()
+                cancion.getNombre(),
+                cancion.getArtista()
             };
             model.addRow(rowData);
         }
@@ -171,7 +178,7 @@ public class ControlPrincipal implements ActionListener {
                         clienteVO = clienteDAO.buscarCliente(validarUsuario.TextUsuario.getText());
                         validarUsuario.dispose();
                         Inet4Address ip = null;
-                        while (ip == null){
+                        while (ip == null) {
                             ip = ventanaEmergente.ventanaIP();
                         }
                         cliente = new ControlUsuario(puerto, ip, clienteVO);
@@ -190,7 +197,41 @@ public class ControlPrincipal implements ActionListener {
                 int seleccion = canciones.jTable1.getSelectedRow();
                 String nombre = (String) canciones.jTable1.getValueAt(seleccion, 0);
                 // Aqui se agregara la logica para descargar la cancion con el nombre que se recoge de la tabla
+
+                canciones.setVisible(false);
+                canciones.setVisible(true);
                 break;
+
+            case "Adelantar":
+                controlMusica.adelantar();
+                break;
+
+            case "Devolver":
+                controlMusica.devolver();
+                break;
+
+            case "Pausa":
+                controlMusica.pausar();
+                break;
+
+            case "Play":
+                controlMusica.play();
+                break;
+            case "Volver a la tienda":
+                canciones.setVisible(true);
+                canciones.setVisible(false);
+                break;
+
         }
-    }
-}
+        
+        
+//
+//    public void reproducirCancion (File cancion){
+//        try {
+//            controlMusica.cargarCancion(cancion); // Delegar al ControlMusica
+//        } catch (Exception e) {
+//            ventanaEmergente.ventanaError("Error al reproducir la canción: " + e.getMessage());
+//        }
+//
+//    }
+}}
