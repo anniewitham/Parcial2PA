@@ -27,7 +27,7 @@ public class ClienteDAO {
     public ClienteDAO(Connection connection) {
         this.connection = connection;
     }
-    
+
     public boolean confirmarClienteVO(String nombre, char[] contrasena) throws SQLException {
         String sql = "SELECT * FROM usuarios WHERE nombre = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -49,7 +49,7 @@ public class ClienteDAO {
         }
         return false;
     }
-    
+
     public ClienteVO buscarCliente(String nombre) throws SQLException {
         String sql = "SELECT * FROM usuarios WHERE nombre = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -57,12 +57,34 @@ public class ClienteDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new ClienteVO(
-                        rs.getString("nombre"),
-                        rs.getInt("saldo")
-                    );
+                            rs.getString("nombre"),
+                            rs.getInt("saldo"));
                 }
             }
         }
         return null;
+    }
+
+    public void actualizarSaldo(ClienteVO cliente) throws SQLException {
+        String sql = "UPDATE usuarios SET saldo = ? WHERE nombre = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, cliente.getSaldo());
+            stmt.setString(2, cliente.getUsuario());
+            stmt.executeUpdate();
+        }
+    }
+
+    public int buscarSaldo(ClienteVO cliente) throws SQLException {
+        String sql = "SELECT saldo FROM usuarios WHERE nombre = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, cliente.getUsuario());
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    // Devolver el saldo si existe
+                    return rs.getInt("saldo");
+                }
+            }
+        }
+        return 0;
     }
 }

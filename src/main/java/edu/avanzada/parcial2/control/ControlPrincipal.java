@@ -31,8 +31,10 @@ public class ControlPrincipal implements ActionListener {
     private ControlServidor controlServidor;
     private ControlUsuario cliente;
     private int puerto;
-    private ClienteVO clienteVO;
+    protected ClienteVO clienteVO;
     protected VentanaServidor ventanaServidor;
+    protected List<CancionVO> lista;
+    private boolean salir;
 
     public ControlPrincipal(int tipo) throws IOException {
         switch (tipo) {
@@ -69,6 +71,7 @@ public class ControlPrincipal implements ActionListener {
 
         ventanaEmergente = new VentanaEmergente();
         buscarArchivo = new VentanaBuscarArchivo();
+        salir = false;
 
         generarConexion();
     }
@@ -104,6 +107,8 @@ public class ControlPrincipal implements ActionListener {
 
                     // Crear conexión a la base de datos
                     conexion = new Conexion(urlBD, usuario, contrasena);
+                    cancionDAO = new CancionDAO(conexion.getConexion());
+                    lista = cancionDAO.consultarCanciones();
 
                     // Obtener el puerto desde el archivo de propiedades
                     puerto = Integer.parseInt(propiedades.getProperty("puerto"));
@@ -112,11 +117,10 @@ public class ControlPrincipal implements ActionListener {
                         case "cliente":
                             // Configuración para el cliente
                             clienteDAO = new ClienteDAO(conexion.getConexion());
-                            cancionDAO = new CancionDAO(conexion.getConexion());
                             validarUsuario.setVisible(true);
 
-                            List<CancionVO> lista = cancionDAO.consultarCanciones();
                             agregarCanciones(lista);
+                            salir = true;
                             break;
                         case "servidor":
                             // Crear el ControlServidor con el puerto
@@ -161,7 +165,16 @@ public class ControlPrincipal implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Salir":
-                System.exit(0);
+                if (salir) {
+                    try {
+                        clienteDAO.actualizarSaldo(clienteVO);
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                    System.exit(0);
+                } else {
+                    System.exit(0);
+                }
                 break;
             case "Ingresar":
 
@@ -169,12 +182,13 @@ public class ControlPrincipal implements ActionListener {
                     if ((clienteDAO.confirmarClienteVO(validarUsuario.TextUsuario.getText(),
                             validarUsuario.TextContraseña.getPassword()))) {
                         clienteVO = clienteDAO.buscarCliente(validarUsuario.TextUsuario.getText());
+                        System.out.println(clienteVO);
                         validarUsuario.dispose();
                         Inet4Address ip = null;
-                        while (ip == null){
+                        while (ip == null) {
                             ip = ventanaEmergente.ventanaIP();
                         }
-                        cliente = new ControlUsuario(puerto, ip, clienteVO);
+                        cliente = new ControlUsuario(puerto, ip, clienteVO, this);
                         canciones.TextNombreCliente1.setText(clienteVO.getUsuario());
                         canciones.TextCuenta.setText(Integer.toString(clienteVO.getSaldo()));
                         canciones.setVisible(true);
@@ -189,8 +203,17 @@ public class ControlPrincipal implements ActionListener {
             case "Descargar Cancion":
                 int seleccion = canciones.jTable1.getSelectedRow();
                 String nombre = (String) canciones.jTable1.getValueAt(seleccion, 0);
-                // Aqui se agregara la logica para descargar la cancion con el nombre que se recoge de la tabla
+                try {
+                    cliente.descargarCancion(nombre);
+                    canciones.TextCuenta.setText(Integer.toString(clienteVO.getSaldo()));
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
                 break;
         }
+    }
+
+    public void setSalir(boolean salir){
+        this.salir = salir;
     }
 }

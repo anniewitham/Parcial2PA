@@ -13,6 +13,7 @@ import java.io.File;
  */
 public class VentanaBuscarArchivo {
     private JFileChooser buscarArchivo;
+    private JFileChooser buscarDirectorio;
     private File archivoSeleccionado; // Almacena el archivo seleccionado
 
     /**
@@ -20,6 +21,7 @@ public class VentanaBuscarArchivo {
      */
     public VentanaBuscarArchivo() {
         buscarArchivo = new JFileChooser();
+        buscarDirectorio = new JFileChooser("user.dir");
     }
 
     /**
@@ -40,6 +42,24 @@ public class VentanaBuscarArchivo {
         } else {
             archivoSeleccionado = null; // Restablecer archivo seleccionado
             return null; // Retornar null si no se seleccionó ningún archivo
+        }
+    }
+
+    public String buscarDirectorio() {
+        buscarDirectorio.setDialogTitle("Seleccionar directorio de destino"); // Título del cuadro de diálogo
+    
+        // Establecer que solo se pueden seleccionar directorios
+        buscarDirectorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    
+        // Mostrar el cuadro de diálogo y guardar el resultado
+        int resultado = buscarDirectorio.showOpenDialog(null);
+    
+        // Comprobar si se seleccionó un directorio
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File directorioSeleccionado = buscarDirectorio.getSelectedFile(); // Obtener el directorio seleccionado
+            return directorioSeleccionado.getAbsolutePath(); // Retornar la ruta absoluta del directorio
+        } else {
+            return null; // Retornar null si no se seleccionó ningún directorio
         }
     }
 

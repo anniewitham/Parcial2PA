@@ -1,6 +1,5 @@
 package edu.avanzada.parcial2.modelo;
 
-import java.io.File;
 import java.sql.*;
 import java.util.*;
 
@@ -37,12 +36,10 @@ public class CancionDAO {
         try (Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                File archivoCancion = new File(rs.getString("cancion"));
-    
                 CancionVO cancion = new CancionVO(
                         rs.getString("nombre"),
                         rs.getString("artista"),
-                        archivoCancion
+                        rs.getBytes("cancion")
                 );
                 canciones.add(cancion);
             }
@@ -50,4 +47,29 @@ public class CancionDAO {
     
         return canciones;
     }
+
+    /**public CancionVO buscarCancion(String nombre) throws SQLException {
+        String sql = "SELECT * FROM canciones WHERE nombre = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nombre);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new CancionVO(
+                        rs.getString("nombre"),
+                        rs.getString("pais_origen"),
+                        rs.getString("grupo_fci"),
+                        rs.getString("seccion_fci"),
+                        rs.getString("apariencia_general"),
+                        rs.getString("pelo"),
+                        rs.getString("color"),
+                        rs.getString("espalda"),
+                        rs.getString("lomo"),
+                        rs.getString("cola"),
+                        rs.getString("pecho")
+                    );
+                }
+            }
+        }
+        return null;
+    }*/
 }

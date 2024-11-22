@@ -9,9 +9,9 @@ import java.io.File;
 public class CancionVO {
     private String nombre;
     private String artista;
-    private File cancion;
+    private byte[] cancion;
 
-    public CancionVO(String Nombre, String Artista, File cancion) {
+    public CancionVO(String Nombre, String Artista, byte[] cancion) {
         this.nombre = Nombre;
         this.artista = Artista;
         this.cancion = cancion;
@@ -33,11 +33,11 @@ public class CancionVO {
         this.artista = artista;
     }
     
-    public File getCancion(){
+    public byte[] getCancion(){
         return cancion;
     }
 
-    public void setCancion(File cancion) {
+    public void setCancion(byte[] cancion) {
         this.cancion = cancion;
     }
 }

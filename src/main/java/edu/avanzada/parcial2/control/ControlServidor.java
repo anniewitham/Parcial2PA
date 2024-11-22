@@ -31,7 +31,7 @@ public class ControlServidor {
                 Socket usuario = servidor.accept();
                 control.ventanaServidor.AreaServidor.append("Nueva conexión entrante desde: " + usuario.getInetAddress().getHostAddress() + "\n");
 
-                sThread = new ServidorThread(usuario, idSesion);
+                sThread = new ServidorThread(usuario, idSesion, control);
                 sThread.start();
                 idSesion++;
             }
