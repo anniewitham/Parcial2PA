@@ -146,12 +146,14 @@ public class Reproductor extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 400, 300);
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonSalirActionPerformed
-
+public void actualizarNombreCancion(String nombreCancion) {
+       TextNombreCancionRepro.setText(nombreCancion);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton BotonDevolver;
     public javax.swing.JLabel TextNombreCancionRepro;

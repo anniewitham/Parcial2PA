@@ -9,6 +9,10 @@ import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -35,6 +39,8 @@ public class ControlPrincipal implements ActionListener {
     protected VentanaServidor ventanaServidor;
     protected List<CancionVO> lista;
     private boolean salir;
+
+    private ControlMusica controlMusica;
 
     public ControlPrincipal(int tipo) throws IOException {
         switch (tipo) {
@@ -77,10 +83,9 @@ public class ControlPrincipal implements ActionListener {
     }
 
     /**
-     * Carga las propiedades de la base de datos desde un archivo seleccionado por
-     * el usuario.
-     * Establece la conexión a la base de datos y crea instancias de los objetos
-     * necesarios.
+     * Carga las propiedades de la base de datos desde un archivo seleccionado
+     * por el usuario. Establece la conexión a la base de datos y crea
+     * instancias de los objetos necesarios.
      */
     private void generarConexion() {
         boolean archivoSeleccionado = false;
@@ -153,8 +158,8 @@ public class ControlPrincipal implements ActionListener {
 
         for (CancionVO cancion : lista) {
             Object[] rowData = {
-                    cancion.getNombre(),
-                    cancion.getArtista()
+                cancion.getNombre(),
+                cancion.getArtista()
             };
             model.addRow(rowData);
         }
@@ -205,15 +210,49 @@ public class ControlPrincipal implements ActionListener {
                 String nombre = (String) canciones.jTable1.getValueAt(seleccion, 0);
                 try {
                     cliente.descargarCancion(nombre);
+                    // Inicia el reproductor con la canción descargada
+                    
+                    controlMusica = new ControlMusica(this);
+                    controlMusica.cargarCancion(nombre);
+                   canciones.setVisible(false);
+                    reproductor.setVisible(true);
+
                     canciones.TextCuenta.setText(Integer.toString(clienteVO.getSaldo()));
                 } catch (SQLException e1) {
                     e1.printStackTrace();
-                }
+                } catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(ControlPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ControlPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(ControlPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                break;
+
+
+            case "Adelantar":
+                controlMusica.adelantar(5000);
+                break;
+
+            case "Devolver":
+                controlMusica.devolver(5000);
+                break;
+
+            case "Pausa":
+                controlMusica.pausar();
+                break;
+
+            case "Play":
+                controlMusica.play();
+                break;
+            case "Volver a la tienda":
+                canciones.setVisible(true);
+                canciones.setVisible(false);
                 break;
         }
     }
 
-    public void setSalir(boolean salir){
+    public void setSalir(boolean salir) {
         this.salir = salir;
     }
 }
